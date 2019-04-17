@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>排序二叉树</title>
+	</head>
+	<body>
+		<!--
+			排序二叉树的显著特点是左孩子的值小于父节点，右孩子的的值大于父节点
+			排序二叉树是我们要研究的重点
+		-->
+		<script type="text/javascript">
+			// 定义二叉树整体的结构
+			function BinaryTree(){
+				//1、 Node标识二叉树中的节点
+				var Node = function (key){
+          // key是数值，left左孩子，right右孩子
+					this.key = key;
+					this.left = null;
+					this.right = null;
+				}
+				//2、 定义根节点
+				var root = null;
+				//3、 根据二叉树特性插入节点
+				var insertNode = function(oldNode, newNode){
+					if(newNode.key < oldNode.key){
+						if(oldNode.left === null){
+							oldNode.left = newNode;
+						} else {
+							insertNode(oldNode.left, newNode);
+						}
+					} else if (newNode.key > oldNode.key){
+						if(oldNode.right === null){
+							oldNode.right = newNode;
+						} else {
+							insertNode(oldNode.right, newNode);
+						}
+					}
+				}
+				//4、 插入节点
+				this.insert = function(key){
+					// 构造一个节点对象
+					var newNode = new Node(key);
+					// 如果此时root为空那么就把插入的节点当做根节点
+					if(root === null){
+						root = newNode;
+					} else {
+						// 如果已经有了根节点就要根据排序二叉树的特性插入孩子节点
+						insertNode(root, newNode);
+					}
+				}
+				console.log(Node);
+			}
+			
+			// 定义一个数组用来存储要插入的数值
+			var nodes = [8,3,10,1,6,14,4,7,13];
+			var binaryTree = new BinaryTree();
+			nodes.forEach(function(key){
+				binaryTree.insert(key);
+			})
+		</script>
+	</body>
+</html>
